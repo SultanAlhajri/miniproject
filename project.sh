@@ -6,9 +6,10 @@ function menu () {
 		echo ""
 		echo "A) Create a user account"
 		echo "B) Delete a user account"
-		echo "C) Change inital group for a user account"
+		echo "C) Change a user group"
 		echo "D) Change account expiration date for a user account"
 		echo "E) Create a group"
+		echo "F) Delete a group"
 		echo "Q) Quit"
 		echo ""
 		echo -n "Enter the letter for the option you want to pick: "
@@ -26,8 +27,15 @@ function menu () {
 
 			changeGroupUser
 		elif [ $choice = "D" ] || [ $choice = "d" ]; then
-
+                	
 			changeExpireDate
+		elif [ $choice = "E" ] || [ $choice = "e" ]; then
+
+		        createGroup	
+		elif [ $choice = "F" ] || [ $choice = "f" ] ; then
+		       
+			deleteGroup
+
 		elif [ $choice = "Q" ] || [ $choice = "q" ]; then
 			clear
 
@@ -55,11 +63,24 @@ function createUser() {
 	echo -n "Please enter the users work group: "
 	read group
 # you must create the group first.
-	useradd -c "$role" -g $group  $username
-
+	useradd -c "$role" -G $group  $username &&  sudo passwd $username
 
 	echo "The user account has been created. Press any key to continue."
-	read
+        read 
+	clear
+
+	echo "do you want to create another user?( y/n ) "
+	read choice2
+
+	if [ $choice2 = y ] ; then
+		  
+		createUser
+	
+
+	else
+		clear
+	fi
+
 	clear
 }
 
@@ -77,8 +98,37 @@ function deleteUser() {
 	echo "The user has been deleted. Press any key to continue."
 	read
 	clear
+	echo " do you want to delete another user ?( y/n) "
+	read choice2
+	if [$choice2 = y ] ; then
+		deelteUser
+	else
+		clear
+	fi
+	clear
 }
 
+function createGroup() {
+	clear
+	echo "Create A Group"
+	echo ""
+	echo "Please enter the the Group name you want to create:"
+	read groupname
+
+	     groupadd $groupname
+	   
+	echo "The group has been created . Press any key to continue."
+   	read
+	clear
+	echo " do you want to create another group ? ( y/n) "
+	read choice2 
+	if [ $choice2 = y ] ; then 
+		createGroup
+	else
+		clear
+	fi
+	
+}
 function changeExpireDate() {
 	clear
 	echo "Change Expiration Date For User Setup"
@@ -91,6 +141,14 @@ function changeExpireDate() {
 	echo "the date has been chnaged. Press any key to continue."
 	read
 	clear
+	echo "do you want to change another user expire date ? (y / n ) "
+	read choice2
+	if [ $choice2 = y ] ; then
+		changeExpireDate
+	else
+		clear
+	fi
+
 }
 function changeGroupUser() {
 	clear
@@ -101,9 +159,36 @@ function changeGroupUser() {
 	echo -n "Please enter the group name to add to the account: "
 	read group
 	echo ""
-	usermod -g $group $username
+	usermod -G $group $username
 	echo "The user has been modified. Press any key to continue."
 	read
 	clear
+	echo " do you want to change another  user group ? ( y / n ) "
+	read choice2
+	if [ $choice2 = y ] ; then
+		changeGroupUser
+	else
+		clear
+	fi
+}
+
+function deleteGroup() {
+	clear
+	echo " Delete Group Setup "
+	echo " "
+	echo -n "please enter the group name "
+	read groupname
+	echo " "
+	groupdel -f $groupname 
+	echo " the group has been deleted. Press any key to continue. "
+	read
+	clear
+	echo " do you want to delete another group ? ( y / n ) "
+	read choice2
+	if [ $choice2 = y ] ; then
+		deleteGroup
+	else
+		clear
+	fi
 }
 menu 
