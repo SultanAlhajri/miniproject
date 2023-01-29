@@ -6,7 +6,8 @@ function menu () {
 		echo ""
 		echo " type any key to continue. "
  
-		read 
+		read
+	       clear	
 		echo ""
 		echo "          User&Group managemnt program                "
 		echo "A) Create a user account"
