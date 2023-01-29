@@ -2,10 +2,10 @@
 # 
 function menu () {
 	while [ true ]; do
-		echo "    WELCOME TO THE USER&GROUP MANAGMENT PROGRAM     " 
-		echo "  "
-		echo " type any key to contnue "
-
+		echo "    WELCOME TO THE USER & GROUP MANAGMENT PROGRAM     " 
+		echo ""
+		echo " type any key to continue. "
+ 
 		read 
 		echo ""
 		echo "          User&Group managemnt program                "
@@ -70,7 +70,7 @@ function createUser() {
 	echo "" 
 	
 	
-	echo " are you sure you want to create the user ? ( y / n )" 
+	echo " are you sure you want to create the user: $username  ? ( y / n )" 
 	read choice1
 	if [ $choice1 = y ] || [ $choice1 = Y ] ; then
 
