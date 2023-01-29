@@ -77,11 +77,13 @@ function createUser() {
 
 # you must create the group first.
 	useradd -c "$role" -G $group  $username &&  sudo passwd $username
-else
+else 
+	clear
+
 	menu
 	clear
 	fi 
-	echo "The user account has been created. Press any key to continue."
+	echo "The user $username has been created. Press any key to continue."
         read 
 	clear
 
@@ -107,18 +109,19 @@ function deleteUser() {
 	echo -n "Please enter the username you would like to delete: "
 	read username
 	echo "" 
-	echo " are you sure you want to delete the user  ? ( y / n )   "
+	echo " are you sure you want to delete the user : $username  ? ( y / n )   "
 	read choice1
 	if [ $choice1 = y ] ||[ $choice1 = Y ] ; then
 
 
 		userdel  $username
-	else menu 
+	else clear
+	       	menu 
 		clear
 	fi
 	
 
-	echo "The user has been deleted. Press any key to continue."
+	echo "The user $username has been deleted. Press any key to continue."
 	read
 	clear
 	echo " do you want to delete another user ?( y/n) "
@@ -138,17 +141,18 @@ function createGroup() {
 	echo "Please enter the the Group name you want to create:"
 	read groupname
 	echo ""
-	echo " are you sure you want to add the Group ? ( y/n )  "
+	echo " are you sure you want to create $groupname Group  ? ( y/n )  "
 read choice1
 if [ $choice1 = y ] || [ $choice1 = Y ] ; then 
 
 
 	     groupadd $groupname
-     else
+     else 
+	     clear 
 	 menu 
        clear
 fi        
-	echo "The group has been created . Press any key to continue."
+	echo "The $groupname group has been created . Press any key to continue."
    	read
 	clear
 	echo " do you want to create another group ? ( y/n) "
@@ -172,7 +176,9 @@ function changeExpireDate() {
 	read choice1
 	if [ $choice1 = y ] ||[ $choice1 = Y ] ; then 
 	usermod -e $expire $username
-	 else  menu
+	 else
+	       clear
+      	       menu
 		 clear
 	fi
 	echo "the date has been chnaged. Press any key to continue."
@@ -200,7 +206,9 @@ function changeGroupUser() {
 	read choice1
 	if [ $choice1 = y ] || [ $choic1 = Y ] ; then 
 	usermod -G $group $username
-else menu
+else
+       clear
+       menu
 	clear 
 	fi
 	echo "The user has been modified. Press any key to continue."
@@ -222,13 +230,14 @@ function deleteGroup() {
 	echo -n "please enter the group name "
 	read groupname
 	echo " "
-	echo " are you sure you want to delete the group ( Y / N)  "
+	echo " are you sure you want to delete $groupname the group ( Y / N)  "
 	read choice1 
 	if [ $choice1 = y ] || [ $choice1 = Y ]  ; then  groupdel -f $groupname 
 	else 
+	 clear 
 	 menu
 	fi 	 
-	echo " the group has been deleted. Press any key to continue. "
+	echo " the $groupname  group has been deleted. Press any key to continue. "
 	read
 	clear
 	echo " do you want to delete another group ? ( y / n ) "
